@@ -38,3 +38,12 @@ Finish time:3:00
 
 Actual time needed to complete:15 mins
 
+## Name of feature:added omponent did mount 
+
+Estimate of time needed to complete:10 min
+
+Start time: 2:00
+
+Finish time:2:20
+
+Actual time needed to complete:20 mins
