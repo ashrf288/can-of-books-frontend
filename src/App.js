@@ -4,10 +4,11 @@ import IsLoadingAndError from "./IsLoadingAndError";
 import Footer from "./Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
-import profile from './components/Profile.js';
+import Profile from './components/Profile'
 import MyFavoriteBooks from './BestBooks';
 import LoginButton from "./components/LoginButton";
 class App extends React.Component {
+
   render() {
     console.log("app", this.props);
     return (
@@ -21,8 +22,9 @@ class App extends React.Component {
                 this.props.auth0.isAuthenticated&&<MyFavoriteBooks/>
                 }
               </Route>
-              <Route path='/profile' exact component={profile}></Route>
-              {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+              <Route exact path="/profile">
+               {this.props.auth0.isAuthenticated && <Profile /> } 
+              </Route>
             </Switch>
             <Footer />
           </IsLoadingAndError>
