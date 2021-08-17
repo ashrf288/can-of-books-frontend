@@ -4,6 +4,8 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import './BestBooks.css';
 import axios from 'axios';
 import BookCard from './components/card';
+import AddBook from './components/BookFormModal';
+import RemoveBook from './components/RemoveBook';
 class MyFavoriteBooks extends React.Component {
   constructor(){
     super()
@@ -21,6 +23,7 @@ class MyFavoriteBooks extends React.Component {
   render() {
     return(
       <div>
+        <div style={{display:'flex' , gap:'30%' ,padding:'20px'}} >
       <Jumbotron>
         <h1>My Favorite Books</h1>
         <p>
@@ -28,6 +31,9 @@ class MyFavoriteBooks extends React.Component {
         </p>
 
       </Jumbotron>
+      <AddBook/>
+      </div>
+      <RemoveBook/>
       {this.state.data&&<BookCard data={this.state.data}/>}
       
       </div>
