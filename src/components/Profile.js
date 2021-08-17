@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { withAuth0 } from '@auth0/auth0-react';
+import MyFavoriteBooks from '../BestBooks'
 class Profile extends Component {
 
   componentDidMount=()=>{
@@ -24,6 +25,8 @@ class Profile extends Component {
         <img src={this.props.auth0.user.picture} alt={this.props.auth0.user.name} />
       <h2>{this.props.auth0.user.name}</h2>
       <p>{this.props.auth0.user.email}</p>
+
+      <MyFavoriteBooks/>
       </div>
     )
   }
