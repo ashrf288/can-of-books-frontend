@@ -1,22 +1,29 @@
 import React, { Component } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
+
 class BookCard extends Component {
   render() {
     return (
       <div>
-        {this.props.data.map((book) => {
-         return(<Card style={{ width: "18rem" }}>
-         <Card.Img variant="top" src="holder.js/100px180" />
-         <Card.Body>
-           <Card.Title>{book.title}</Card.Title>
-           <Card.Text>
-             Some quick example text to build on the card title and make up
-             the bulk of the card's content.
-           </Card.Text>
-           <Button variant="primary">Go somewhere</Button>
-         </Card.Body>
-       </Card>) 
-        })}
+        <Carousel>
+          {this.props.data.map((book) => {
+            return (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="https://cdn.cjr.org/wp-content/uploads/2017/04/book-pages.jpeg"
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>{book.title}</h3>
+                  <h3>{book._id}</h3>
+                  <p>{book.description}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
+        
       </div>
     );
   }
