@@ -59,7 +59,7 @@ Finish time: 2:40
 Actual time needed to complete: 40 MINN
 
 
-## Name of feature:add ability to delete book
+## Name of feature:add ability to UPDATE book
 
 Estimate of time needed to complete: 30 mins
 
