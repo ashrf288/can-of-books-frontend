@@ -6,12 +6,27 @@ import axios from 'axios';
 import BookCard from './components/card';
 import AddBook from './components/BookFormModal';
 import RemoveBook from './components/RemoveBook';
+import { Button } from 'react-bootstrap';
 class MyFavoriteBooks extends React.Component {
   constructor(){
     super()
     this.state={
-      data:[]
+      data:[],
+      show:false,
+      showR:false
     }
+  }
+  clickHandler=(()=>{
+    this.setState({show:true,showR:false})
+  })
+  clickHandlerR=(()=>{
+    this.setState({showR:true,show:false})
+  })
+  closeModal=(bool)=>{
+    this.setState({show:bool})
+  }
+  closeModalR=(bool)=>{
+    this.setState({showR:bool})
   }
   componentDidMount=()=>{
 
@@ -31,9 +46,14 @@ class MyFavoriteBooks extends React.Component {
         </p>
 
       </Jumbotron>
-      <AddBook/>
+      {this.state.show&&<AddBook func={this.closeModal}/>}
+      {this.state.showR&&<RemoveBook func={this.closeModalR}/>}
+      
       </div>
-      <RemoveBook/>
+      <Button onClick={(e)=>this.clickHandler(e)} variant="primary">ADD BOOK</Button>
+      <Button onClick={(e)=>this.clickHandlerR(e)} variant="primary">Remove BOOK</Button>
+      
+     
       {this.state.data&&<BookCard data={this.state.data}/>}
       
       </div>

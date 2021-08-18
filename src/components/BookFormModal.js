@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form,Button } from "react-bootstrap";
+import { Form,Button,Modal } from "react-bootstrap";
 import { withAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 class AddBook extends Component {
@@ -22,28 +22,48 @@ changeHndler=(e)=>{
 
 submitHandler=(e)=>{
     e.preventDefault()
+    let data={
+      title:this.state.title,
+      email:this.state.email,
+      status:this.state.status,
+      description:this.state.description,
+  }
     console.log(this.state)
-    if(this.props.auth0.isAuthenticated){
-        this.props.auth0.getIdTokenClaims().then(res=>{
-          const jwt=res.__raw;
-          const config={
-            headers:{"Authorization" : `Bearer ${jwt}`},
-            method:'post',
-            baseURL:process.env.REACT_APP_SERVER_URL,
-            url:'/books/create',
-            Body: this.state
-          }
-          axios(config).then(axiosResults=>console.log(axiosResults.data)).catch(err=>console.log(err));
-        }).catch(err=>console.log(err));
-      }
+    // if(this.props.auth0.isAuthenticated){
+    //     this.props.auth0.getIdTokenClaims().then(res=>{
+    //       const jwt=res.__raw;
+    //       const config={
+    //         headers:{"Authorization" : `Bearer ${jwt}`},
+    //         method:'post',
+    //         baseURL:process.env.REACT_APP_SERVER_URL,
+    //         url:'/books/create',
+    //         Body:data
+    //       }
+    //       axios(config).then(axiosResults=>console.log(axiosResults.data)).catch(err=>console.log(err));
+    //     }).catch(err=>console.log(err));
+    //   }
+    axios.post('http://localhost:8000/books/create',data).then(resp=>{
+     console.log(resp.data)
+    })
+      this.clickHndler()
     }
-
+    
+    clickHndler=(e)=>{
+      
+      this.props.func(false)
+    }
 
 
   render() {
     return (
       <div style={{ width: "300px" }}>
-        <Form onSubmit={(e)=>this.submitHandler(e)}>
+       <Modal.Dialog>
+  <Modal.Header closeButton onClick={(e)=>this.clickHndler(e)}>
+    <Modal.Title>Add books</Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+  <Form onSubmit={(e)=>this.submitHandler(e)}>
           <Form.Group className="mb-3" >
             <Form.Label>book name</Form.Label>
             <Form.Control type="text" onChange={(e)=>this.changeHndler(e)} placeholder="Enter book name" name='title' />
@@ -54,12 +74,19 @@ submitHandler=(e)=>{
           </Form.Group>
           <Form.Group className="mb-3" >
             <Form.Label>book description</Form.Label>
-            <textarea  onChange={(e)=>this.changeHndler(e)} placeholder='discription of the book' style={{width: '400px'}} name='description' />
+            <textarea  onChange={(e)=>this.changeHndler(e)} placeholder='discription of the book' style={{width: '250px'}} name='description' />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" >
             Submit
           </Button>
         </Form>
+  </Modal.Body>
+
+  <Modal.Footer>
+    <Button onClick={(e)=>this.clickHndler(e)} variant="secondary">Close</Button>
+    
+  </Modal.Footer>
+</Modal.Dialog>
       </div>
     );
   }
