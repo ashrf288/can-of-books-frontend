@@ -47,3 +47,24 @@ Start time: 2:00
 Finish time:2:20
 
 Actual time needed to complete:20 mins
+
+## Name of feature:add ability to delete book
+
+Estimate of time needed to complete: 30 mins
+
+Start time:2;00
+
+Finish time: 2:40
+
+Actual time needed to complete: 40 MINN
+
+
+## Name of feature:add ability to delete book
+
+Estimate of time needed to complete: 30 mins
+
+Start time: 2:40
+
+Finish time: 3:40
+
+Actual time needed to complete: 1HR
