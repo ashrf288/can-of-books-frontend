@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form,Button,Modal } from "react-bootstrap";
 import { withAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
-class AddBook extends Component {
+class UpdateBook extends Component {
 constructor(){
     super()
     this.state={
@@ -29,28 +29,30 @@ submitHandler=(e)=>{
       description:this.state.description,
   }
     console.log(this.state)
-    // if(this.props.auth0.isAuthenticated){
-    //     this.props.auth0.getIdTokenClaims().then(res=>{
-    //       const jwt=res.__raw;
-    //       const config={
-    //         headers:{"Authorization" : `Bearer ${jwt}`},
-    //         method:'post',
-    //         baseURL:process.env.REACT_APP_SERVER_URL,
-    //         url:'/books/create',
-    //         Body:data
-    //       }
-    //       axios(config).then(axiosResults=>console.log(axiosResults.data)).catch(err=>console.log(err));
-    //     }).catch(err=>console.log(err));
-    //   }
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/books/create`,data).then(resp=>{
-     console.log(resp.data)
-    })
+    if (this.props.auth0.isAuthenticated) {
+      this.props.auth0
+        .getIdTokenClaims()
+        .then((res) => {
+          const jwt = res.__raw;
+          const config = {
+            headers: { Authorization: `Bearer ${jwt}` },
+            method: "put",
+            baseURL: process.env.REACT_APP_SERVER_URL,
+            url: `/books/update/611bb086bb96312f8d68dbd0`,
+            body:data,
+          };
+          axios(config)
+            .then((axiosResults) => console.log(axiosResults.data))
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
       this.clickHndler()
     }
     
     clickHndler=(e)=>{
       
-      this.props.func(false)
+      this.props.show(false)
     }
 
 
@@ -59,11 +61,15 @@ submitHandler=(e)=>{
       <div style={{ width: "300px" }}>
        <Modal.Dialog>
   <Modal.Header closeButton onClick={(e)=>this.clickHndler(e)}>
-    <Modal.Title>Add books</Modal.Title>
+    <Modal.Title>update book</Modal.Title>
   </Modal.Header>
 
   <Modal.Body>
   <Form onSubmit={(e)=>this.submitHandler(e)}>
+  <Form.Group className="mb-3" >
+            <Form.Label>book id </Form.Label>
+            <Form.Control type="text" value={this.props.id} onChange={(e)=>this.changeHndler(e)} placeholder="Enter book name" name='title' />
+          </Form.Group>
           <Form.Group className="mb-3" >
             <Form.Label>book name</Form.Label>
             <Form.Control type="text" onChange={(e)=>this.changeHndler(e)} placeholder="Enter book name" name='title' />
@@ -92,4 +98,4 @@ submitHandler=(e)=>{
   }
 }
 
-export default withAuth0 (AddBook);
+export default withAuth0 (UpdateBook);

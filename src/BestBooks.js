@@ -5,7 +5,7 @@ import './BestBooks.css';
 import axios from 'axios';
 import BookCard from './components/card';
 import AddBook from './components/BookFormModal';
-import RemoveBook from './components/RemoveBook';
+import RemoveBook from './components/UpdateBook';
 import { Button } from 'react-bootstrap';
 class MyFavoriteBooks extends React.Component {
   constructor(){
@@ -51,7 +51,6 @@ class MyFavoriteBooks extends React.Component {
       
       </div>
       <Button onClick={(e)=>this.clickHandler(e)} variant="primary">ADD BOOK</Button>
-      <Button onClick={(e)=>this.clickHandlerR(e)} variant="primary">Remove BOOK</Button>
       
      
       {this.state.data&&<BookCard data={this.state.data}/>}
